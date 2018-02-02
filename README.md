@@ -1,1 +1,1 @@
-read
+Boot up !!!
