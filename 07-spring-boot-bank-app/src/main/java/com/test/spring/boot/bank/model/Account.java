@@ -36,10 +36,43 @@ public class Account extends NamedEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
+	@JsonIgnore
 	private Customer customer;
+
+	public Date getOpeningDate() {
+		return openingDate;
+	}
+
+	public void setOpeningDate(Date openingDate) {
+		this.openingDate = openingDate;
+	}
+
+	public AccountType getType() {
+		return type;
+	}
+
+	public void setType(AccountType type) {
+		this.type = type;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.EAGER)
 	private Set<Request> requests;
+
+	public Set<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(Set<Request> requests) {
+		this.requests = requests;
+	}
 
 	@JsonIgnore
 	protected Set<Request> getRequestsInternal() {

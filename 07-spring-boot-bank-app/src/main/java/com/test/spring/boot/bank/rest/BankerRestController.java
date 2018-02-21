@@ -5,16 +5,16 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.test.spring.boot.bank.model.Customer;
+import com.test.spring.boot.bank.model.Banker;
 import com.test.spring.boot.bank.rest.base.BaseRestController;
-import com.test.spring.boot.bank.service.CustomerService;
+import com.test.spring.boot.bank.service.BankerService;
 
 @RestController
-@RequestMapping(path = "/api/customers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-class CustomerRestController extends BaseRestController<Customer> {
+@RequestMapping(path = "/api/bankers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+class BankerRestController extends BaseRestController<Banker> {
 
 	@Autowired
-	public CustomerRestController(CustomerService customerService) {
-		super(customerService);
+	public BankerRestController(BankerService bankerService) {
+		super(bankerService);
 	}
 }

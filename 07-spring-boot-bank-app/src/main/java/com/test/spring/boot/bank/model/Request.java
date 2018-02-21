@@ -14,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.test.spring.boot.bank.model.base.BaseEntity;
 
 @Entity
@@ -33,6 +34,7 @@ public class Request extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "account_id")
+	@JsonIgnore
 	private Account account;
 
 	public Request() {

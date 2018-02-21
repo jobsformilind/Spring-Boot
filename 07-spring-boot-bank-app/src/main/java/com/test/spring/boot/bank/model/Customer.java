@@ -38,6 +38,14 @@ public class Customer extends Person {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.EAGER)
 	private Set<Account> accounts;
 
+	public Set<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
+	}
+
 	public String getAddress() {
 		return this.address;
 	}
