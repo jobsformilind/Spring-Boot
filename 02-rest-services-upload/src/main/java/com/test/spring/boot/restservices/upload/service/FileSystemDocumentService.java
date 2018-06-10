@@ -42,6 +42,15 @@ public class FileSystemDocumentService implements DocumentService {
 		}
 	}
 
+	public void storeOne(MultipartFile file) {
+		try {
+			Path path = toPath(file.getOriginalFilename());
+			Files.copy(file.getInputStream(), path);
+		} catch (IOException ex) {
+			throw new StorageException("Error while storing document.", ex);
+		}
+	}
+
 	@Override
 	public Resource load(String uuid) {
 		DocumentMetaData metadata = getLocalMetaData(uuid);

@@ -1,8 +1,16 @@
 package com.test.spring.boot.restservices.upload.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.tomcat.util.http.fileupload.FileItemIterator;
+import org.apache.tomcat.util.http.fileupload.FileItemStream;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
@@ -48,4 +56,31 @@ public class UploadController {
 		return ResponseEntity.ok(metadata);
 	}
 
+	@PostMapping(path = "/file")
+	public ResponseEntity<Object> uploadOneFile(@RequestParam(value = "file", required = true) MultipartFile file) {
+		documentService.storeOne(file);
+		UriComponentsBuilder uriBuilder = ServletUriComponentsBuilder.fromCurrentRequest().path("/{uuid}");
+		BodyBuilder builder = ResponseEntity.created(uriBuilder.buildAndExpand(file.getOriginalFilename()).toUri());
+		return builder.build();
+	}
+
+	
+	private InputStream getInputStream(final HttpServletRequest request) throws IOException, FileUploadException {
+	    final ServletFileUpload upload = new ServletFileUpload();
+	    final FileItemIterator iterator = upload.getItemIterator(request);
+
+	    InputStream is = null;
+
+	    while (iterator.hasNext()) {
+	        final FileItemStream item = iterator.next();
+
+	        if (!item.isFormField()) {
+	            is = item.openStream();
+
+	            break;
+	        }
+	    }
+
+	    return is;
+	}
 }

@@ -11,6 +11,8 @@ public interface DocumentService {
 
 	DocumentMetaData store(MultipartFile file, DocumentMetaData metadata);
 
+	void storeOne(MultipartFile file);
+
 	Resource load(String uuid);
 
 	DocumentMetaData getMetaData(String uuid);
